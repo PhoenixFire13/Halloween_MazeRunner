@@ -1,25 +1,28 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 
 public class GameCaptions : MonoBehaviour {
 
-    Animator anim;
     Text subtitles;
     string txt;
-    int count;
+    int txtCount;
 
     public float nextLetterDelay;
     public float nextSentenceDelay;
 
+    public static int guideCount;
+
+    GameGuideText guide;
+
     IEnumerator Start()
     {
-        anim = GetComponentInParent<Animator>();
         subtitles = GetComponent<Text>();
+        guide = GetComponentInChildren<GameGuideText>();
         subtitles.text = "";
 
-        // set initial text
-        count = 0;
+        guideCount = 0;
+        txtCount = 0;
         ChangeText();
 
         yield return new WaitForSeconds(1.5f);
@@ -34,8 +37,23 @@ public class GameCaptions : MonoBehaviour {
             yield return new WaitForSeconds(nextLetterDelay);
         }
 
-        yield return new WaitForSeconds(2f);
-        ClearText();
+        txtCount++;
+        if (txtCount <= 1)
+        {
+            StartCoroutine(NextSentence());
+        }
+        else
+        {
+            yield return new WaitForSeconds(nextSentenceDelay);
+            ClearText();
+
+            // placed here temporarily
+            // set condition to when guideCount == 2 when more text are added
+            yield return new WaitForSeconds(1f);
+            guide.enabled = true;
+
+            StopAllCoroutines();
+        }
     }
 
     void ClearText()
@@ -43,13 +61,25 @@ public class GameCaptions : MonoBehaviour {
         subtitles.text = "";
     }
 
-    // changes text according to sentence count
+    IEnumerator NextSentence()
+    {
+        yield return new WaitForSeconds(nextSentenceDelay);
+        ClearText();
+
+        ChangeText();
+        StartCoroutine(LetterTyper());
+    }
+
     void ChangeText()
     {
-        switch (count)
+        switch (txtCount)
         {
             case 0:
                 txt = "So dark ... Maybe I should have brought a flashlight after all.";
+                break;
+            case 1:
+                txt = "I should look around.\nMaybe I'll be able to find some sort of hint to the treasure.";
+                guideCount++;
                 break;
         }
     }

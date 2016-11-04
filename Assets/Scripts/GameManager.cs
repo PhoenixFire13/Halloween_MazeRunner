@@ -31,8 +31,8 @@ public class GameManager : MonoBehaviour {
 		yield return StartCoroutine(mazeInstance.Generate());
 
 		playerInstance = Instantiate(playerPrefab) as Player;
-        // instantiates player specifically at first cell
-        playerInstance.SetLocation(mazeInstance.GetCell(mazeInstance.InitialCoordinates));
+		// instantiates player specifically at first cell
+		playerInstance.SetLocation(mazeInstance.GetCell(mazeInstance.InitialCoordinates));
 
         // Q: What does setting the "Clear Flags" property of the camera to "Depth" do?
 		Camera.main.clearFlags = CameraClearFlags.Depth;

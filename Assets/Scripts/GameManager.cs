@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour {
 		Camera.main.clearFlags = CameraClearFlags.Depth;
 		Camera.main.rect = new Rect(0f, 0f, 0.5f, 0.5f);
 
-        mazeGenerated = true;
+        	mazeGenerated = true;
 	}
 
 	void RestartGame () {

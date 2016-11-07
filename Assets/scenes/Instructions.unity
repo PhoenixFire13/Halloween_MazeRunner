@@ -320,11 +320,55 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   colors:
   - {r: 1, g: 1, b: 1, a: 1}
-  - {r: 0.37048277, g: 0.0432526, b: 0.58823526, a: 1}
-  - {r: 0.8235294, g: 0.13321798, b: 0.13321798, a: 1}
-  - {r: 0.8177157, g: 0.8602941, b: 0.08855967, a: 1}
+  - {r: 0.34383067, g: 0.08704584, b: 0.5147059, a: 1}
+  - {r: 0.5411765, g: 0.02745098, b: 0.02745098, a: 1}
+  - {r: 0.099913515, g: 0.64705884, b: 0.17160836, a: 1}
   - {r: 0.31336507, g: 0.9264706, b: 0.79962116, a: 1}
   speed: 1.32
+--- !u!1 &684814291
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 684814293}
+  - 114: {fileID: 684814292}
+  m_Layer: 0
+  m_Name: HR Test
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &684814292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 684814291}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e33ca01865f223e439e920767fbf4aa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  restingHR: 80
+  minorHeartRisk: 150
+  majorHeartRisk: 180
+  tstep: 0.001
+--- !u!4 &684814293
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 684814291}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -13.260611, y: 2.254658, z: 161.28125}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
 --- !u!1 &740527280
 GameObject:
   m_ObjectHideFlags: 0
@@ -360,8 +404,8 @@ RectTransform:
   m_RootOrder: 2
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 32}
-  m_SizeDelta: {x: 722, y: 200}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 734, y: 436}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &740527282
 MonoBehaviour:
@@ -389,7 +433,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 3
     m_MaxSize: 40
-    m_Alignment: 3
+    m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -758,7 +802,7 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 402, y: -332}
+  m_AnchoredPosition: {x: 400, y: -320}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1782376987
@@ -857,10 +901,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffb1a16d3ed6a8e4c9901d8a7fa1e26a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pageText:
-  - Use the WASD keys to control the player and the mouse to look around.
-  - asd
-  - dwq
 --- !u!1 &1862845192
 GameObject:
   m_ObjectHideFlags: 0
@@ -970,7 +1010,7 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -402, y: -332}
+  m_AnchoredPosition: {x: -400, y: -320}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2126222387
@@ -1069,7 +1109,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffb1a16d3ed6a8e4c9901d8a7fa1e26a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pageText:
-  - Use the WASD keys to control the player and the mouse to look around.
-  - asd
-  - dwq

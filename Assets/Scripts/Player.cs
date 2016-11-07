@@ -2,6 +2,8 @@
 
 public class Player : MonoBehaviour {
 
+    public float latSpeed, rotSpeed;
+
 	private MazeCell currentCell;
 
 	private MazeDirection currentDirection;
@@ -23,9 +25,10 @@ public class Player : MonoBehaviour {
 
     // change code
 	private void Move (float v) {
-        Vector3 movement = new Vector3(0f, 0f, v);
-        movement *= Time.deltaTime;
-
+        //Vector3 movement = new Vector3(0f, 0f, v);
+        Vector3 movement = new Vector3(Mathf.Sin(transform.rotation.eulerAngles.y * Mathf.Deg2Rad) * v, 0f, Mathf.Cos(transform.rotation.eulerAngles.y * Mathf.Deg2Rad) * v);
+        movement *= Time.deltaTime * latSpeed;
+        
         transform.localPosition = transform.position + movement;
 
 		/*
@@ -42,10 +45,8 @@ public class Player : MonoBehaviour {
 	}
 
     private void Turn (float h) {
-        Vector3 turn = new Vector3(0f, h, 0f);
-        Quaternion rotate = Quaternion.Euler(turn);
-
-        // fix to be able to turn completely
+        float newRotate = transform.eulerAngles.y + h * rotSpeed;
+        Quaternion rotate = Quaternion.Euler(0f, newRotate, 0f);
         transform.rotation = Quaternion.Lerp(transform.rotation, rotate, Time.time);
     }
 

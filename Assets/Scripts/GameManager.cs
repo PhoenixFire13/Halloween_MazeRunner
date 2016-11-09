@@ -19,6 +19,20 @@ public class GameManager : MonoBehaviour {
 		if (Input.GetKeyDown(KeyCode.Space)) {
 			RestartGame();
 		}
+
+        if (playerInstance != null && playerInstance.GetComponentInChildren<HeartRateManager>().getHR() > playerInstance.GetComponentInChildren<HeartRateManager>().majorHeartRisk)
+        {
+            float rand = Random.Range(0f, 1f);
+            if (rand <= 0.15)
+            {
+                StopAllCoroutines();
+                Destroy(mazeInstance.gameObject);
+                GUIText txt = playerInstance.GetComponentInChildren<GUIText>();
+                txt.pixelOffset.Set(300f, -400f);
+                txt.text = "GAME OVER";
+            }
+
+        }
 	}
 
 	IEnumerator BeginGame () {
@@ -37,8 +51,8 @@ public class GameManager : MonoBehaviour {
         // Q: What does setting the "Clear Flags" property of the camera to "Depth" do?
 		Camera.main.clearFlags = CameraClearFlags.Depth;
 		Camera.main.rect = new Rect(0f, 0f, 0.5f, 0.5f);
-
-        	mazeGenerated = true;
+        
+        mazeGenerated = true;
 	}
 
 	void RestartGame () {

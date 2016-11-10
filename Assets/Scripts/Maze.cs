@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -15,7 +15,7 @@ public class Maze : MonoBehaviour {
 	public MazeDoor doorPrefab;
 
     // Q: Why is the range written like this?
-    // A: 
+    // A: To restrict the range of the variable to a specific range
     [Range(0f, 1f)]
 	public float doorProbability;
 
@@ -23,7 +23,13 @@ public class Maze : MonoBehaviour {
 
 	public MazeRoomSettings[] roomSettings;
 
+    public ParticleSystem[] trapParticles;
+
+    public GameObject[] collectables;
+
 	private MazeCell[,] cells;
+
+    private ParticleSystem[,] traps;
 
 	private List<MazeRoom> rooms = new List<MazeRoom>();
 
@@ -34,6 +40,16 @@ public class Maze : MonoBehaviour {
             return new IntVector2(Random.Range(0, size.x), Random.Range(0, size.z));
 		}
 	}
+
+    private ParticleSystem RandomTrap()
+    {
+        return trapParticles[Random.Range(0, trapParticles.Length)];
+    }
+
+    private MazeCell RandomCell()
+    {
+        return cells[Random.Range(0, size.x), Random.Range(0, size.z)];
+    }
 
     // specifies first cell generated
     public IntVector2 InitialCoordinates {
@@ -56,6 +72,7 @@ public class Maze : MonoBehaviour {
 		WaitForSeconds delay = new WaitForSeconds(generationStepDelay);
 
 		cells = new MazeCell[size.x, size.z];
+        traps = new ParticleSystem[size.x, size.z];
 		List<MazeCell> activeCells = new List<MazeCell>();
 
 		DoFirstGenerationStep(activeCells);
@@ -64,9 +81,10 @@ public class Maze : MonoBehaviour {
 			DoNextGenerationStep(activeCells);
 		}
 
+        CreateCollectables();
 
         // hide all rooms after done generating
-		for (int i = 0; i < rooms.Count; i++) {
+        for (int i = 0; i < rooms.Count; i++) {
 			rooms[i].Hide();
 		}
 	}
@@ -115,7 +133,7 @@ public class Maze : MonoBehaviour {
 	}
 
 	private MazeCell CreateCell (IntVector2 coordinates) {
-		MazeCell newCell = Instantiate(cellPrefab) as MazeCell;
+        MazeCell newCell = Instantiate(cellPrefab) as MazeCell;
         cells[coordinates.x, coordinates.z] = newCell;
 
 		newCell.coordinates = coordinates;
@@ -125,23 +143,16 @@ public class Maze : MonoBehaviour {
         // A: 
         newCell.transform.localPosition = new Vector3(coordinates.x - size.x * 0.5f + 0.5f, 0f, coordinates.z - size.z * 0.5f + 0.5f);
 
-		return newCell;
+        int trapProbability = (int) Random.Range(0f, 100f);
+        if (trapProbability <= 1f && newCell != null)
+        {
+            CreateTrap(newCell);
+        }
+
+        return newCell;
 	}
 
-	private void CreatePassage (MazeCell cell, MazeCell otherCell, MazeDirection direction) {
-        // incomplete code to instantiate entrance and exit
-        /*
-        if (cell == cells[10, 0]) {
-            MazeDoor door = Instantiate(doorPrefab);
-            door.Initialize(otherCell, cell, direction);
-            door = Instantiate(doorPrefab);
-
-            otherCell.Initialize(cell.room);
-            door.Initialize(otherCell, cell, direction.GetOpposite());
-            return;
-        }
-        */
-
+    private void CreatePassage (MazeCell cell, MazeCell otherCell, MazeDirection direction) {
         // Q: How does the following line of code work?
         // A: 
         MazePassage prefab = Random.value < doorProbability ? doorPrefab : passagePrefab;
@@ -209,9 +220,31 @@ public class Maze : MonoBehaviour {
 		return newRoom;
 	}
 
-    // incomplete
-    private void CreateExit (MazeCell cell, MazeCell other) {
-        MazeDirection direction = (MazeDirection)Random.Range(0f, 4f);
-        MazeCellEdge edge = cell.GetEdge(direction);
+    private void CreateTrap (MazeCell cell)
+    {
+        ParticleSystem trap = Instantiate(RandomTrap());
+
+        TrapManager manager = trap.GetComponent<TrapManager>();
+        manager.transform.position = cell.transform.position;
+        manager.coordinates = cell.coordinates;
+
+        traps[manager.coordinates.x, manager.coordinates.z] = trap;
+        trap.name = "Trap " + manager.coordinates.x + ", " + manager.coordinates.z;
+    }
+
+    private void CreateCollectables()
+    {
+        foreach (GameObject collect in collectables)
+        {
+            GameObject key = Instantiate(collect);
+            MazeCell cell = RandomCell();
+            CollectObjects obj = key.GetComponent<CollectObjects>();
+
+            Vector3 yCoor = new Vector3(cell.transform.position.x, 0.25f, cell.transform.position.z);
+            obj.transform.position = yCoor;
+
+            obj.coordinates = cell.coordinates;
+            key.name = "Collectable " + obj.coordinates.x + ", " + obj.coordinates.z;
+        }
     }
 }

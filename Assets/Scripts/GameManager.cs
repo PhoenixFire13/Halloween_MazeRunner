@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class GameManager : MonoBehaviour {
@@ -17,14 +18,20 @@ public class GameManager : MonoBehaviour {
     }
 	
 	void Update () {
-		if (Input.GetKeyDown(KeyCode.Space)) {
+		if (Input.GetKeyDown(KeyCode.Space))
+        {
 			RestartGame();
 		}
 
-        if (playerInstance != null && playerInstance.GetComponentInChildren<HeartRateManager>().getHR() > playerInstance.GetComponentInChildren<HeartRateManager>().majorHeartRisk)
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            HeartRateManager.increaseHR(200f);
+        }
+
+        if (playerInstance != null && HeartRateManager.getHR() > playerInstance.GetComponentInChildren<HeartRateManager>().majorHeartRisk || HeartRateManager.getHR() < 60f)
         {
             float rand = Random.Range(0f, 1f);
-            if (rand <= 0.15)
+            if (rand <= 0.1)
             {
                 DestroyAll();
                 gameOver = true;
@@ -34,11 +41,12 @@ public class GameManager : MonoBehaviour {
         {
             DestroyAll();
         }
-    }
+	}
 
 	IEnumerator BeginGame () {
 		Camera.main.clearFlags = CameraClearFlags.Skybox;
 		Camera.main.rect = new Rect(0f, 0f, 1f, 1f);
+        Camera.main.gameObject.GetComponent<AudioListener>().enabled = false;
 
 		mazeInstance = Instantiate(mazePrefab) as Maze;
 
@@ -46,13 +54,13 @@ public class GameManager : MonoBehaviour {
 		yield return StartCoroutine(mazeInstance.Generate());
 
 		playerInstance = Instantiate(playerPrefab) as Player;
-        // instantiates player specifically at first cell
-        playerInstance.SetLocation(mazeInstance.GetCell(mazeInstance.InitialCoordinates));
+		// instantiates player specifically at first cell
+		playerInstance.SetLocation(mazeInstance.GetCell(mazeInstance.InitialCoordinates));
 
         // Q: What does setting the "Clear Flags" property of the camera to "Depth" do?
 		Camera.main.clearFlags = CameraClearFlags.Depth;
 		Camera.main.rect = new Rect(0f, 0f, 0.5f, 0.5f);
-
+        
         mazeGenerated = true;
 	}
 
@@ -79,7 +87,6 @@ public class GameManager : MonoBehaviour {
         {
             Destroy(collectable.gameObject);
         }
-
         Destroy(mazeInstance.gameObject);
         Destroy(playerInstance.gameObject);
     }

@@ -4,23 +4,31 @@ using System.Collections;
 
 public class Timer : MonoBehaviour {
 
-    public int timeLim;
-    private Text txt;
-    private int timeLeft;
+    public static int timeLim = 600;
+    public static bool timerOn = false;
 
-	// Use this for initialization
-	void Start () {
+    private Text txt;
+    public int timeLeft;
+
+    // Use this for initialization
+    void Start () {
         txt = GetComponent<Text>();
         txt.text = "Time Left: " + timeLim;
         timeLeft = timeLim;
+        timerOn = true;
         StartCoroutine(timer());
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	    if (timeLeft == 0)
+	    if (GameManager.gameOver || timeLeft == 0)
         {
             StopAllCoroutines();
+
+            if (!GameManager.gameOver)
+            {
+                GameManager.gameOver = true;
+            }
         }
 	}
 

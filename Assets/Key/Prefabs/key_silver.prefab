@@ -29,7 +29,7 @@ GameObject:
   - 114: {fileID: 114000011213589350}
   m_Layer: 0
   m_Name: key_silver
-  m_TagString: Untagged
+  m_TagString: ExitKey
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -160,7 +160,7 @@ Light:
   serializedVersion: 7
   m_Type: 2
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 2.5
+  m_Intensity: 3
   m_Range: 1
   m_SpotAngle: 30
   m_CookieSize: 10

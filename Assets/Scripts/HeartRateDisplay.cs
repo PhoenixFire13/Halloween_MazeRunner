@@ -15,7 +15,10 @@ public class HeartRateDisplay : MonoBehaviour {
 	// Update is called once per 
     void Update()
     {
-
+        if (GameManager.gameOver)
+        {
+            StopAllCoroutines();
+        }
     }
 
     IEnumerator updateHR()

@@ -16,7 +16,7 @@ public class Player : MonoBehaviour {
 	}
 
 	private void Move (MazeDirection direction) {
-		MazeCellEdge edge = currentCell.GetEdge(direction);
+        MazeCellEdge edge = currentCell.GetEdge(direction);
 		if (edge is MazePassage) {
 			SetLocation(edge.otherCell);
 		}
@@ -28,23 +28,17 @@ public class Player : MonoBehaviour {
 	}
 
 	private void Update () {
-		if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) {
+        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) {
 			Move(currentDirection);
 		}
 		else if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)) {
-			Move(currentDirection.GetNextClockwise());
-		}
+            Look(currentDirection.GetNextClockwise());
+        }
 		else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)) {
 			Move(currentDirection.GetOpposite());
 		}
 		else if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)) {
-			Move(currentDirection.GetNextCounterclockwise());
-		}
-		else if (Input.GetKeyDown(KeyCode.Q)) {
-			Look(currentDirection.GetNextCounterclockwise());
-		}
-		else if (Input.GetKeyDown(KeyCode.E)) {
-			Look(currentDirection.GetNextClockwise());
-		}
-	}
+            Look(currentDirection.GetNextCounterclockwise());
+        }
+    }
 }

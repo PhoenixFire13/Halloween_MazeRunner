@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 using System.Collections;
 
 public class GameManager : MonoBehaviour {
@@ -11,37 +10,31 @@ public class GameManager : MonoBehaviour {
 	public Player playerPrefab;
 
     public static bool mazeGenerated = false;
+    public static bool gameOver = false;
 
 	void Start () {
         StartCoroutine(BeginGame());
     }
 	
 	void Update () {
-		if (Input.GetKeyDown(KeyCode.Space))
-        {
+		if (Input.GetKeyDown(KeyCode.Space)) {
 			RestartGame();
 		}
 
-        if (Input.GetKeyDown(KeyCode.Tab))
-        {
-            playerInstance.GetComponentInChildren<HeartRateManager>().increaseHR(200f);
-        }
-
-        
         if (playerInstance != null && playerInstance.GetComponentInChildren<HeartRateManager>().getHR() > playerInstance.GetComponentInChildren<HeartRateManager>().majorHeartRisk)
         {
             float rand = Random.Range(0f, 1f);
             if (rand <= 0.15)
             {
-                StopAllCoroutines();
-                Destroy(mazeInstance.gameObject);
-                Text txt = playerInstance.GetComponentInChildren<Text>();
-                txt.rectTransform.position.Set(0f, 0f, 0f);
-                txt.text = "GAME OVER";
+                DestroyAll();
+                gameOver = true;
             }
-
         }
-	}
+        else if (GameStatus.gameWin)
+        {
+            DestroyAll();
+        }
+    }
 
 	IEnumerator BeginGame () {
 		Camera.main.clearFlags = CameraClearFlags.Skybox;
@@ -53,13 +46,13 @@ public class GameManager : MonoBehaviour {
 		yield return StartCoroutine(mazeInstance.Generate());
 
 		playerInstance = Instantiate(playerPrefab) as Player;
-		// instantiates player specifically at first cell
-		playerInstance.SetLocation(mazeInstance.GetCell(mazeInstance.InitialCoordinates));
+        // instantiates player specifically at first cell
+        playerInstance.SetLocation(mazeInstance.GetCell(mazeInstance.InitialCoordinates));
 
         // Q: What does setting the "Clear Flags" property of the camera to "Depth" do?
 		Camera.main.clearFlags = CameraClearFlags.Depth;
 		Camera.main.rect = new Rect(0f, 0f, 0.5f, 0.5f);
-        
+
         mazeGenerated = true;
 	}
 
@@ -71,4 +64,23 @@ public class GameManager : MonoBehaviour {
 		}
 		StartCoroutine(BeginGame());
 	}
+
+    void DestroyAll()
+    {
+        StopAllCoroutines();
+
+        GameObject[] traps = GameObject.FindGameObjectsWithTag("Trap");
+        GameObject[] collectables = GameObject.FindGameObjectsWithTag("Collectable");
+        foreach (GameObject trap in traps)
+        {
+            Destroy(trap.gameObject);
+        }
+        foreach (GameObject collectable in collectables)
+        {
+            Destroy(collectable.gameObject);
+        }
+
+        Destroy(mazeInstance.gameObject);
+        Destroy(playerInstance.gameObject);
+    }
 }

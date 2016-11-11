@@ -23,19 +23,19 @@ public class ParticlesTrigger : MonoBehaviour {
 
             if (tag == "RedTrap")
             {
-                other.gameObject.GetComponentInChildren<HeartRateManager>().increaseHR(40f);
+                HeartRateManager.increaseHR(40f);
             }
             else if (tag == "BlueTrap")
             {
-                other.gameObject.GetComponentInChildren<HeartRateManager>().increaseHR(30f);
+                HeartRateManager.increaseHR(30f);
             }
             else if (tag == "GreenTrap")
             {
-                other.gameObject.GetComponentInChildren<HeartRateManager>().increaseHR(20f);
+                HeartRateManager.increaseHR(20f);
             }
             else if (tag == "YellowTrap")
             {
-                other.gameObject.GetComponentInChildren<HeartRateManager>().increaseHR(10f);
+                HeartRateManager.increaseHR(10f);
             }
 
             Destroy(gameObject);

@@ -3,14 +3,15 @@ using System.Collections;
 
 public class HeartRateManager : MonoBehaviour {
 
-    public float restingHR, minorHeartRisk, majorHeartRisk, tstep;
-    private float currentHR, t;
+    public float minorHeartRisk, majorHeartRisk, tstep;
+
+    public static float currentHR, restingHR, t;
 
 	// Use this for initialization
 	void Start () {
         t = 1.5f;
         currentHR = restingHR;
-        //increaseHR(100f);
+        increaseHR(100f);
     }
 	
 	// Update is called once per frame
@@ -29,7 +30,7 @@ public class HeartRateManager : MonoBehaviour {
     }
 
     //Use the increaseHR method to increase the heart rate by the parameter
-    public void increaseHR (float increase)
+    public static void increaseHR (float increase)
     {
         float finalHR = currentHR + increase;
         t = 10.0f / (finalHR - restingHR);

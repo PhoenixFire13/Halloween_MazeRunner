@@ -29,6 +29,7 @@ public class IntroSubtitles : MonoBehaviour {
         StartCoroutine(LetterTyper());
 	}
 	
+<<<<<<< HEAD:Assets/Scripts/IntroSubtitles.cs
 	IEnumerator LetterTyper() {
         foreach (char letter in txt.ToCharArray()) {
             subtitles.text += letter;
@@ -49,6 +50,28 @@ public class IntroSubtitles : MonoBehaviour {
             StartCoroutine(EndLoadingScene());
             anim.SetTrigger("EndCutScene");
         }
+=======
+	IEnumerator LetterTyper() {
+        foreach (char letter in txt.ToCharArray()) {
+            subtitles.text += letter;
+            yield return new WaitForSeconds(nextLetterDelay);
+        }
+
+        count++;
+        if (count <= 3)
+        {
+            StartCoroutine(NextSentence());
+        }
+        else
+        {
+            yield return new WaitForSeconds(nextSentenceDelay);
+            introEnded = true;
+            ClearText();
+
+            StartCoroutine(EndLoadingScene());
+            anim.SetTrigger("EndCutScene");
+        }
+>>>>>>> origin/master:Assets/Scripts/IntroSubtitles.cs
     }
 
     IEnumerator NextSentence()
@@ -85,6 +108,7 @@ public class IntroSubtitles : MonoBehaviour {
         }
     }
 
+<<<<<<< HEAD:Assets/Scripts/IntroSubtitles.cs
     IEnumerator EndLoadingScene()
     {
         yield return new WaitForSeconds(5f);
@@ -96,6 +120,19 @@ public class IntroSubtitles : MonoBehaviour {
         }
 
         StartCoroutine(EndLoadingScene());
+=======
+    IEnumerator EndLoadingScene()
+    {
+        yield return new WaitForSeconds(3f);
+
+        if (GameManager.mazeGenerated)
+        {
+            anim.SetTrigger("MazeGenerated");
+            ActivateCaptions();
+        }
+
+        StartCoroutine(EndLoadingScene());
+>>>>>>> origin/master:Assets/Scripts/IntroSubtitles.cs
     }
 
     void ActivateCaptions()

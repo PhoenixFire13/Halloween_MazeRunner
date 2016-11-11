@@ -428,9 +428,9 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 424660810}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8501e4b63a97eca48a3bcab57fe804e4, type: 3}
+  m_Script: {fileID: 11500000, guid: d282c6d7625a637469b7f5df8d8ec029, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &477435719
@@ -488,7 +488,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -542,7 +542,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mazePrefab: {fileID: 11400000, guid: a2395bb8a91944f21b621f2614d6db99, type: 2}
-  playerPrefab: {fileID: 11400000, guid: 4c6e2fb6da7fd4f5aa5c8463ebb46e79, type: 2}
+  playerPrefab: {fileID: 114000010955978352, guid: 4c6e2fb6da7fd4f5aa5c8463ebb46e79,
+    type: 2}
 --- !u!1 &787870707
 GameObject:
   m_ObjectHideFlags: 0
@@ -626,26 +627,26 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 787870707}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a3341381e1f96d44999e288baac4900, type: 3}
+  m_Script: {fileID: 11500000, guid: 3ade38667db36d44b8e2fbd7c0965de4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextLetterDelay: 0.05
-  nextSentenceDelay: 3
+  nextLetterDelay: 0.1
+  nextSentenceDelay: 0.3
 --- !u!114 &787870712
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 787870707}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d3d41de665943a46b39c46d703a695d, type: 3}
+  m_Script: {fileID: 11500000, guid: 3328ebb88135a894ab04fd2601c0d0fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextLetterDelay: 0.05
-  nextSentenceDelay: 1.5
+  nextLetterDelay: 0.1
+  nextSentenceDelay: 0.3
 --- !u!1 &1232630336
 GameObject:
   m_ObjectHideFlags: 0

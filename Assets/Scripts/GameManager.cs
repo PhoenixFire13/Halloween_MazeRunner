@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class GameManager : MonoBehaviour {
@@ -16,10 +17,17 @@ public class GameManager : MonoBehaviour {
     }
 	
 	void Update () {
-		if (Input.GetKeyDown(KeyCode.Space)) {
+		if (Input.GetKeyDown(KeyCode.Space))
+        {
 			RestartGame();
 		}
 
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            playerInstance.GetComponentInChildren<HeartRateManager>().increaseHR(200f);
+        }
+
+        
         if (playerInstance != null && playerInstance.GetComponentInChildren<HeartRateManager>().getHR() > playerInstance.GetComponentInChildren<HeartRateManager>().majorHeartRisk)
         {
             float rand = Random.Range(0f, 1f);
@@ -27,8 +35,8 @@ public class GameManager : MonoBehaviour {
             {
                 StopAllCoroutines();
                 Destroy(mazeInstance.gameObject);
-                GUIText txt = playerInstance.GetComponentInChildren<GUIText>();
-                txt.pixelOffset.Set(300f, -400f);
+                Text txt = playerInstance.GetComponentInChildren<Text>();
+                txt.rectTransform.position.Set(0f, 0f, 0f);
                 txt.text = "GAME OVER";
             }
 

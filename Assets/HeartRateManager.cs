@@ -10,20 +10,22 @@ public class HeartRateManager : MonoBehaviour {
 	void Start () {
         t = 1.5f;
         currentHR = restingHR;
+        //increaseHR(100f);
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
-        //Debug.Log((int)returnHRToRest());
+        returnHRToRest();
+        //Debug.Log(getHR());
 	}
 
     //Returns the heart rate back down to the resting heart rate over time and oscillates slightly above and slightly below the resting heart rate
-    public float returnHRToRest ()
+    public void returnHRToRest ()
     {
-        float currentHR = (10.0f / t) + restingHR + (Mathf.Sin(t) * 25 * Mathf.Exp(-(Mathf.PingPong(t , 1.0f) + 2)));
-        t += tstep;
-        return currentHR;
+        currentHR = (10.0f / t) + restingHR + (Mathf.Sin(t) * 25 * Mathf.Exp(-(Mathf.PingPong(t , 1.0f) + 2)));
+        float newTstep = tstep * Mathf.Pow((Mathf.Exp(t / 10) - Mathf.Exp(-t / 10)) / (Mathf.Exp(t / 10) + Mathf.Exp(-t / 10)), 1.3f);
+        t += newTstep;
     }
 
     //Use the increaseHR method to increase the heart rate by the parameter

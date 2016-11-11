@@ -4,15 +4,24 @@ using UnityEngine.UI;
 
 public class HeartRateDisplay : MonoBehaviour {
 
-    private GUIText txt;
+    private Text txt;
 
 	// Use this for initialization
 	void Start () {
-        txt = GetComponent<GUIText>();
+        txt = GetComponentInChildren<Text>();
+        StartCoroutine(updateHR());
 	}
 	
-	// Update is called once per frame
-	void Update () {
-        txt.text = "Heart Rate: " + (int)GetComponent<HeartRateManager>().getHR();
+	// Update is called once per 
+    void Update()
+    {
+
+    }
+
+    IEnumerator updateHR()
+    {
+        yield return new WaitForSeconds(0.5f);
+        txt.text = "" + (int)GetComponent<HeartRateManager>().getHR();
+        yield return updateHR();
     }
 }

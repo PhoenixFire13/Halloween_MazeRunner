@@ -24,7 +24,7 @@ public class HeartRateDisplay : MonoBehaviour {
     IEnumerator updateHR()
     {
         yield return new WaitForSeconds(0.5f);
-        txt.text = "" + (int)GetComponent<HeartRateManager>().getHR();
+        txt.text = "" + HeartRateManager.getHR();
         yield return updateHR();
     }
 }

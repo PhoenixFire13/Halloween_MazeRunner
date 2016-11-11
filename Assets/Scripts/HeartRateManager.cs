@@ -36,7 +36,7 @@ public class HeartRateManager : MonoBehaviour {
         t = 10.0f / (finalHR - restingHR);
     }
 
-    public float getHR ()
+    public static float getHR ()
     {
         return currentHR;
     }

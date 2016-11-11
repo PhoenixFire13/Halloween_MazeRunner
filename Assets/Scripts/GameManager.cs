@@ -87,7 +87,14 @@ public class GameManager : MonoBehaviour {
         {
             Destroy(collectable.gameObject);
         }
-        Destroy(mazeInstance.gameObject);
-        Destroy(playerInstance.gameObject);
+        
+	if (mazeInstance != null)
+        {
+            Destroy(mazeInstance.gameObject);
+        }
+        if (playerInstance != null)
+        {
+            Destroy(playerInstance.gameObject);
+        }
     }
 }
